@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 
 class UserServiceTest {
 
@@ -143,7 +142,7 @@ class UserServiceTest {
     void whenUpdateUserCalledWithInvalidUserIdAndUserRequest_itShouldNotReturnUpdatedUserDto() {
         String testId = "9b97bc0c-0ab2-4772-a7a1-ced065e59478";
 
-        when(userRepository.findById(testId)).thenReturn(Optional.empty());
+        Mockito.when(userRepository.findById(testId)).thenReturn(Optional.empty());
 
         assertThrows(com.yavuzahmet.crudappunittest.exception.NotFoundException.class,
                 () -> userService.getUser(testId));
