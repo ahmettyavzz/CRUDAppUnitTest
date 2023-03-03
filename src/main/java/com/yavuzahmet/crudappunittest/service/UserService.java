@@ -31,16 +31,18 @@ public class UserService {
         return userRepository.findAll().stream().map(userConverter::toDto).collect(Collectors.toList());
     }
 
-    public String deleteUserById(String id){
-        findUserById(id);
-        userRepository.deleteById(id);
-        return "User deleted with this id :"+id;
-    }
-    public UserDto updateUser(String id, UserRequest userRequest){
-        var user= findUserById(id);
+    public UserDto updateUser(String id, UserRequest userRequest) {
+        var user = findUserById(id);
         user.setUsername(userRequest.getUsername());
         return userConverter.toDto(userRepository.save(user));
     }
+
+    public String deleteUserById(String id) {
+        findUserById(id);
+        userRepository.deleteById(id);
+        return "User deleted with this id :" + id;
+    }
+
     private User findUserById(String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
