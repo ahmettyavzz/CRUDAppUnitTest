@@ -164,4 +164,14 @@ class UserServiceTest {
         Mockito.verify(userRepository, times(1)).findById(testId);
     }
 
+    @Test
+    @DisplayName("When deleteUser called with invalid userId it should throw exception")
+    void whenDeleteUserCalledWithInvalidUserId_itShouldThrowException() {
+        String testId = "9b97bc0c-0ab2-4772-a7a1-ced065e59478";
+
+        Mockito.when(userRepository.findById(testId)).thenReturn(Optional.empty());
+
+        assertThrows(com.yavuzahmet.crudappunittest.exception.NotFoundException.class,
+                () -> userService.deleteUserById(testId));
+    }
 }
